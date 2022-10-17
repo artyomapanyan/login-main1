@@ -7,6 +7,8 @@ import 'antd/dist/antd.css'
 import {Route, Routes, useNavigate} from "react-router-dom";
 import { useState } from 'react';
 import AuthModal from "./Components/Auth/AuthModal";
+import {LoginPage} from "./Components/LoginPage/LoginPage";
+
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -96,7 +98,8 @@ function App() {
                     }}
                 >
                     <Routes>
-                        <Route exact path={'test'} element={<div>56566</div>}/>
+                        <Route exact path={'test'} element={<LoginPage />} />
+
                     </Routes>
 
                 </Content>

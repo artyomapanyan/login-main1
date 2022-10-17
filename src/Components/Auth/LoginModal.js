@@ -1,25 +1,39 @@
 import React, {useRef} from "react"
-import {Checkbox, Form, Input, Modal} from "antd";
+import { Form, Input, Modal} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {useDispatch, useSelector} from "react-redux";
+import {Route, Routes, useNavigate} from "react-router-dom";
+import moment from "moment/moment";
+
 function LoginModal({setIsModalOpen,isModalOpen}){
+    let reduxState = useSelector((state) => state)
+    console.log(reduxState)
+    let dispatch = useDispatch()
+
+    let navigate = useNavigate();
+
     const formRef = useRef();
     const handleOk = () => {
-        console.log(formRef.current)
         formRef.current.submit()
-        console.log(formRef.current.isFieldsTouched())
-        //setIsModalOpen(false);
     };
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const alert = ()=>{
-        alert('445445')
-        formRef.current.setFieldsValue({
-            username:'alert'
-        })
-    }
+
     const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+        let user =  reduxState.users.find(el =>el.name === values.name && el.password === values.password)
+        if(user) {
+            dispatch({
+                type:'LOGIN',
+                payload:user
+            })
+            formRef.current.resetFields()
+            navigate("test");
+            setIsModalOpen(false);
+        } else {
+            alert("aaa")
+        }
+
     };
     return <Modal title="Please input your Username and Password" open={isModalOpen} okText={"Login"} onOk={handleOk} onCancel={handleCancel}>
         <Form
@@ -32,7 +46,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
             onFinish={onFinish}
         >
             <Form.Item
-                name="username"
+                name="name"
                 rules={[
                     {
                         required: true,
@@ -57,13 +71,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                     placeholder="Password"
                 />
             </Form.Item>
-            <Form.Item>
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                    <Checkbox>Remember me</Checkbox>
-                </Form.Item>
 
-
-            </Form.Item>
 
 
         </Form>
