@@ -5,9 +5,12 @@ import {Breadcrumb, Button, Col, Layout, Menu, Row, Modal} from 'antd';
 import React from 'react';
 import 'antd/dist/antd.css'
 import {Route, Routes, useNavigate} from "react-router-dom";
-import { useState } from 'react';
+import {LoggedId} from './Functions'
 import AuthModal from "./Components/Auth/AuthModal";
 import {LoginPage} from "./Components/LoginPage/LoginPage";
+import {LogOut} from "./Components/LogOut/LogOut.js";
+import {Users} from "./Components/Users/Users.js";
+import RoutePermission from "./Components/Fragments/RoutePermission";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -44,14 +47,18 @@ function App() {
                         {
                             key:'/test',
                             label:'Test page'
+                        },
+                        {
+                            key:'/users',
+                            label:'Users'
                         }
                     ]} />
+
                 </Col>
                 <Col lg={3}>
                     <div className="div-inputs">
-                        {
-                            <AuthModal />
-                        }
+                        {!LoggedId()?<AuthModal />: <LogOut />}
+
                     </div>
 
                 </Col>
@@ -98,8 +105,8 @@ function App() {
                     }}
                 >
                     <Routes>
-                        <Route exact path={'test'} element={<LoginPage />} />
-
+                        <Route exact path={'test'} element={<RoutePermission checkAuth={true}><LoginPage /></RoutePermission>} />
+                        <Route exact path={'users'} element={<Users />} />
                     </Routes>
 
                 </Content>

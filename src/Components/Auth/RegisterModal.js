@@ -35,7 +35,7 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
                 type:'register',
                 payload:{
                     ...values,
-                    id:Math.random(),
+                    id:Math.floor(Math.random() * (1000000 - 1 + 1)) + 1,
                     date_of_birth:moment(values.date_of_birth).format('DD-MM-YYYY')
                 }
             })
@@ -43,6 +43,12 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
             formRef.current.resetFields()
 
     };
+
+    const handleKeyPress = (event)=>{
+        if(event.key === 'Enter'){
+            formRef.current.submit();
+        }
+    }
 
 
 
@@ -75,7 +81,7 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
                     }
                 ]}
             >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="New Username" />
+                <Input onKeyPress={handleKeyPress} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="New Username" />
             </Form.Item>
             <Form.Item
                 name="password"
@@ -87,6 +93,7 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
                 ]}
             >
                 <Input
+                    onKeyPress={handleKeyPress}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="New Password"
@@ -101,7 +108,8 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
                     },
                 ]}
             >
-                <DatePicker placeholder={'Date of birth'} />
+                <DatePicker
+                    placeholder={'Date of birth'} />
             </Form.Item>
 
 

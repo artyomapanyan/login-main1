@@ -2,12 +2,11 @@ import React, {useRef} from "react"
 import { Form, Input, Modal} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
-import {Route, Routes, useNavigate} from "react-router-dom";
-import moment from "moment/moment";
+import {useNavigate} from "react-router-dom";
 
 function LoginModal({setIsModalOpen,isModalOpen}){
     let reduxState = useSelector((state) => state)
-    console.log(reduxState)
+    //console.log(reduxState)
     let dispatch = useDispatch()
 
     let navigate = useNavigate();
@@ -27,14 +26,21 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                 type:'LOGIN',
                 payload:user
             })
+
             formRef.current.resetFields()
             navigate("test");
             setIsModalOpen(false);
         } else {
-            alert("aaa")
+            alert("неправильное имя пользователя или пароль")
         }
 
     };
+    const handleKeyPress = (event)=>{
+        if(event.key === 'Enter'){
+            formRef.current.submit();
+        }
+    }
+
     return <Modal title="Please input your Username and Password" open={isModalOpen} okText={"Login"} onOk={handleOk} onCancel={handleCancel}>
         <Form
             ref={formRef}
@@ -44,6 +50,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                 remember: true,
             }}
             onFinish={onFinish}
+
         >
             <Form.Item
                 name="name"
@@ -54,7 +61,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                     },
                 ]}
             >
-                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                <Input onKeyPress={handleKeyPress} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
             </Form.Item>
             <Form.Item
                 name="password"
@@ -66,14 +73,12 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                 ]}
             >
                 <Input
+                    onKeyPress={handleKeyPress}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
                 />
             </Form.Item>
-
-
-
         </Form>
     </Modal>
 }

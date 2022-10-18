@@ -7,7 +7,9 @@ export default function auth(state = {
             user:action.payload
         }
     }
-
+    if(action.type === 'LOGOUT'){
+        return {}
+    }
 
 
     return state;
