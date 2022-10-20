@@ -7,6 +7,10 @@ function Users() {
     console.log(reduxUsers)
     let dispatch = useDispatch()
 
+    const onClickPerson = () => {
+    alert("aaa")
+    }
+
     return(
         <div>
 
@@ -16,6 +20,7 @@ function Users() {
                 renderItem={(item) => (
                     <List.Item>
                         <List.Item.Meta
+                            onClick={onClickPerson}
                             avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
                             title={<a href="https://ant.design">{item.title}</a>}
                             description={`${item.name} ${item.id}`}

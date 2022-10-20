@@ -10,6 +10,11 @@ export default function auth(state = {
     if(action.type === 'LOGOUT'){
         return {}
     }
+    if (action.type === 'UPDATE_USER') {
+        return {
+            user:action.payload
+        };
+    }
 
 
     return state;
