@@ -7,14 +7,13 @@ export default function users(state = [], action){
         ]
     }
     if (action.type === 'UPDATE_USER') {
-        return {
-            ...state,
-            users:[
+        return [
                 action.payload,
-                ...state.users.filter((obj) => obj.id !== action.payload.id)
-            ]
-        };
+                ...state.filter((obj) => obj.id !== action.payload.id)
+
+        ]
     }
+
 
 
 

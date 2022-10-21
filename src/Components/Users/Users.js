@@ -4,8 +4,7 @@ import { Avatar, List } from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 function Users() {
     let reduxUsers = useSelector((state) => state.users)
-    console.log(reduxUsers)
-    let dispatch = useDispatch()
+
 
     const onClickPerson = () => {
     alert("aaa")

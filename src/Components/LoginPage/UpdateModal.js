@@ -1,64 +1,63 @@
 import {useDispatch, useSelector} from "react-redux";
-import {DatePicker, Form, Input, Modal} from "antd";
+import {DatePicker, Form, Input, Modal, Select} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import React, {useRef} from "react";
 import moment from "moment/moment";
+import UserImage from "../Fragments/UserImage";
+import Configs from "../../Configs";
 
 
-function UpdateModal(isModalOpen, setIsModalOpen) {
+function UpdateModal({isModalOpen2, setIsModalOpen2}) {
     let userRedux = useSelector((state) => state.auth.user)
-    console.log(userRedux)
+    const {Images} =Configs;
+    let imagesKey = Object.keys(Images)
+    //console.log("Images", imagesKey)
     let dispatch = useDispatch()
 
     const formRef = useRef();
     const handleOk = () => {
         //console.log(formRef.current)
         formRef.current.submit()
-
-        //console.log(formRef.current.isFieldsTouched())
     };
 
 
     const handleCancel = () => {
-        setIsModalOpen(false);
+        setIsModalOpen2(false);
     };
 
     const onFinish = (values) => {
-        console.log(values, "adsd")
         dispatch({
             type:'UPDATE_USER',
             payload:{
                 ...userRedux,
-                name:values.name,
+                ...values,
                 date_of_birth:moment(values.date_of_birth).format('DD-MM-YYYY')
 
             }
         })
-        setIsModalOpen(false)
-        formRef.current.resetFields()
+        formRef.current.resetFields();
+        setIsModalOpen2(false)
     }
 
     const handleKeyPress = (e) => {
         if(e.key === 'Enter'){
             formRef.current.submit();
+            setIsModalOpen2(false);
         }
     }
-
-
-    return<Modal title="Update" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+    return<Modal title="Update" open={isModalOpen2} onOk={handleOk} onCancel={handleCancel}>
     <Form
         ref={formRef}
         name="normal_login"
         className="login-form"
         initialValues={{
             name: userRedux.name,
-            date_of_birth: moment(userRedux.date_of_birth)
-
+            date_of_birth: moment(userRedux.date_of_birth),
+            image_id: userRedux.image_id
         }}
         onFinish={onFinish}
     >
         <Form.Item
-
             name="name"
             rules={[
                 {
@@ -80,22 +79,6 @@ function UpdateModal(isModalOpen, setIsModalOpen) {
         >
             <Input  onKeyPress={handleKeyPress} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="New Username" />
         </Form.Item>
-        {/*<Form.Item*/}
-        {/*    name="password"*/}
-        {/*    rules={[*/}
-        {/*        {*/}
-        {/*            required: true,*/}
-        {/*            message: 'Please input your Password!',*/}
-        {/*        },*/}
-        {/*    ]}*/}
-        {/*>*/}
-        {/*    <Input*/}
-        {/*        onKeyPress={handleKeyPress}*/}
-        {/*        prefix={<LockOutlined className="site-form-item-icon" />}*/}
-        {/*        type="password"*/}
-        {/*        placeholder="New Password"*/}
-        {/*    />*/}
-        {/*</Form.Item>*/}
         <Form.Item
             name="date_of_birth"
             rules={[
@@ -107,6 +90,19 @@ function UpdateModal(isModalOpen, setIsModalOpen) {
         >
             <DatePicker
                 placeholder={'Date of birth'} />
+        </Form.Item>
+        <Form.Item
+            name="image_id"
+        >
+           <Select>
+
+               {
+                   imagesKey.map((el) => (<Select.Option key={el}><UserImage id={el} /></Select.Option>))
+               }
+
+
+
+           </Select>
         </Form.Item>
     </Form>
     </Modal>

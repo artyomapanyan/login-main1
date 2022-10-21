@@ -1,43 +1,60 @@
-import React, {useRef, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {Form, Input, Modal, DatePicker, Space, Button} from "antd";
-import auth from "../../reducers/auth";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import moment from "moment/moment";
-import {UpdateModal} from "./UpdateModal";
 
+import {useSelector} from "react-redux";
+import {Button, Card} from "antd";
+import {UpdateModal} from "./UpdateModal";
+import {UpdatePasswordModal} from "./UpdatePasswordModal";
+import {useState} from "react";
+import "./LoginPage.css"
+import UserImage from "../Fragments/UserImage";
+import React from 'react';
+const { Meta } = Card;
 
 
 function LoginPage() {
     let reduxUsers = useSelector((state) => state)
-    let dispatch = useDispatch()
+    // console.log("nkar",reduxUsers.auth.user.image_id)
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
+    const [isModalOpen1, setIsModalOpen1] = useState(false);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // const formRef = useRef();
-    // const handleOk = () => {
-    //     //console.log(formRef.current)
-    //     formRef.current.submit()
-    //     //console.log(formRef.current.isFieldsTouched())
-    // };
-    const showModal = () => {
-        setIsModalOpen(false);
+    const showModalUpdate = () => {
+        setIsModalOpen2(true);
     };
 
-
-
+    const showModalUpdatePassword = () => {
+        setIsModalOpen1(true);
+    };
 
     return(
         <div>
-            {reduxUsers.auth.user.name} {"    "}
-            <Button type="primary" onClick={showModal}>
-                Update
-            </Button>
+            <div className="userImage">
+                <Card
+                    hoverable
+                    style={{
+                        width: 240,
+                    }}
+                    cover={<UserImage id={reduxUsers.auth.user.image_id} />}
+                >
+                    <Meta title={reduxUsers.auth.user.name} />
+                </Card>
 
+
+            </div>
+
+            <Button type="primary" onClick={showModalUpdate}>
+                Update
+            </Button>{"   "}
+            <Button type="primary" onClick={showModalUpdatePassword}>
+                Update Password
+            </Button>
+            {/*<ImageShower id={1}/>*/}
 
                 <UpdateModal
-                    isModalOpen={isModalOpen} />
+                    isModalOpen2={isModalOpen2}
+                    setIsModalOpen2={setIsModalOpen2}/>
 
+                <UpdatePasswordModal
+                    isModalOpen1={isModalOpen1}
+                    setIsModalOpen1={setIsModalOpen1}/>
 
         </div>
     )

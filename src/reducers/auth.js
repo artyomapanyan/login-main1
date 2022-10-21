@@ -16,6 +16,5 @@ export default function auth(state = {
         };
     }
 
-
     return state;
 }
