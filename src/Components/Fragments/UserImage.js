@@ -1,14 +1,22 @@
-import {Avatar} from "antd";
+import {Avatar, Card} from "antd";
 import Configs from "../../Configs";
 import "./UserImage.css"
+import React from 'react';
+
 
 
 
 function UserImage({id}) {
    let {Images} = Configs;
 
-   console.log(Images[id], "aaa")
-    return(<Avatar shape="square" className="qqq" size="middle" src={Images[id]} />)
+    return(
+        <div>
+            <Avatar shape="square" className="qqq" size="large" src={Images[id]} />
+
+        </div>
+        )
+
+
 }
 
 export default UserImage;

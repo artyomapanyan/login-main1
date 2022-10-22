@@ -6,15 +6,7 @@ import moment from "moment";
 
 function RegisterModal({setIsModalOpen1,isModalOpen1}){
     let usersRedux = useSelector((state) => state.users)
-    //console.log(usersRedux)
     let dispatch = useDispatch()
-
-    // const test = '11-11-2017'
-    // let momentObject = moment(test);
-    // console.log(test,momentObject, moment(momentObject).format('DD-MM-YYYY'))
-
-
-
 
     const formRef = useRef();
     const handleOk = () => {
@@ -24,13 +16,8 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
     };
     const handleCancel = () => {
         setIsModalOpen1(false);
-
     };
-
-
-
     const onFinish = (values) => {
-
             dispatch({
                 type:'register',
                 payload:{
@@ -49,8 +36,6 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
             formRef.current.submit();
         }
     }
-
-
 
     return <Modal title="Please input new Username and Password" open={isModalOpen1} okText={"Register"} onOk={handleOk} onCancel={handleCancel}>
         <Form
@@ -76,7 +61,6 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
 
                            }
                            return Promise.resolve()
-
                     }
                     }
                 ]}

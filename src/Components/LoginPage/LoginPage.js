@@ -3,18 +3,21 @@ import {useSelector} from "react-redux";
 import {Button, Card} from "antd";
 import {UpdateModal} from "./UpdateModal";
 import {UpdatePasswordModal} from "./UpdatePasswordModal";
+import {Comments} from "./Comments";
 import {useState} from "react";
 import "./LoginPage.css"
-import UserImage from "../Fragments/UserImage";
+import UserImage from "../Fragments/UserImage.js";
 import React from 'react';
+import {useParams} from "react-router-dom";
 const { Meta } = Card;
 
 
 function LoginPage() {
-    let reduxUsers = useSelector((state) => state)
-    // console.log("nkar",reduxUsers.auth.user.image_id)
+    let redux = useSelector((state) => state)
     const [isModalOpen2, setIsModalOpen2] = useState(false);
     const [isModalOpen1, setIsModalOpen1] = useState(false);
+    let params = useParams();
+
 
     const showModalUpdate = () => {
         setIsModalOpen2(true);
@@ -23,30 +26,33 @@ function LoginPage() {
     const showModalUpdatePassword = () => {
         setIsModalOpen1(true);
     };
+    let isGuest = params.id;
+    let User =isGuest?redux.users.find(user=>user.id===(+isGuest)):redux.auth.user;
 
     return(
         <div>
-            <div className="userImage">
+
                 <Card
                     hoverable
                     style={{
-                        width: 240,
+                        width: 200,
+                        height:200
                     }}
-                    cover={<UserImage id={reduxUsers.auth.user.image_id} />}
+                    cover={<UserImage id={User.image_id} />}
                 >
-                    <Meta title={reduxUsers.auth.user.name} />
+                    <Meta title={User.name} />
                 </Card>
 
 
-            </div>
 
-            <Button type="primary" onClick={showModalUpdate}>
-                Update
-            </Button>{"   "}
-            <Button type="primary" onClick={showModalUpdatePassword}>
-                Update Password
-            </Button>
-            {/*<ImageShower id={1}/>*/}
+            {!isGuest?<div>
+              <div>
+                <Button type="primary" onClick={showModalUpdate}>
+                    Update
+                </Button>{"   "}
+                <Button type="primary" onClick={showModalUpdatePassword}>
+                    Update Password
+                </Button>
 
                 <UpdateModal
                     isModalOpen2={isModalOpen2}
@@ -55,6 +61,13 @@ function LoginPage() {
                 <UpdatePasswordModal
                     isModalOpen1={isModalOpen1}
                     setIsModalOpen1={setIsModalOpen1}/>
+              </div>
+
+
+            </div>:null}
+            <div>
+                <Comments User={User}/>
+            </div>
 
         </div>
     )

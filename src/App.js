@@ -1,7 +1,7 @@
 
 import './App.css';
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import {Breadcrumb, Button, Col, Layout, Menu, Row, Modal} from 'antd';
+import {Breadcrumb, Col, Layout, Menu, Row} from 'antd';
 import React from 'react';
 import 'antd/dist/antd.css'
 import {Route, Routes, useNavigate} from "react-router-dom";
@@ -34,8 +34,6 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
 
 
 function App() {
-
-
 
     const navigate = useNavigate()
     return <Layout>
@@ -107,6 +105,7 @@ function App() {
                     <Routes>
                         <Route exact path={'test'} element={<RoutePermission checkAuth={true}><LoginPage /></RoutePermission>} />
                         <Route exact path={'users'} element={<Users />} />
+                        <Route exact path={'users/:id'} element={<LoginPage />} />
                     </Routes>
 
                 </Content>
