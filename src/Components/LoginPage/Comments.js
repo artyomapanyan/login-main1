@@ -113,7 +113,7 @@ function Comments({User}) {
                                             <button onClick={() => onUpdateComment(comment)}>
                                                 <EditOutlined/>
                                             </button>
-                                            <p style={{color:red}}>{comment.updateId ? "updeted" : ""}</p>
+                                            <p>{comment.updateId ? "updeted" : ""}</p>
                                         </Tooltip>
                                     }
                                     content={comment.comment ?? 'dsadas'}
