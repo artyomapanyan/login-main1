@@ -27,7 +27,7 @@ function LoginPage() {
         setIsModalOpen1(true);
     };
     let isGuest = params.id;
-    let User =isGuest?redux.users.find(user=>user.id===(+isGuest)):redux.auth.user;
+    let User =isGuest ? redux.users.find(user=>user.id===(+isGuest)):redux.auth.user;
 
     return(
         <div>
