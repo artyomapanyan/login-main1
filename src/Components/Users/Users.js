@@ -1,26 +1,33 @@
 import React from "react";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { List } from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import UserImage from "../Fragments/UserImage.js";
+import moment from "moment";
 
 
 function Users() {
-    let reduxUsers = useSelector((state) => state.users)
+    let redux= useSelector((state) => state);
+    let dispatch = useDispatch();
 
     const navigate = useNavigate()
+
+    const onMessage = (item) => {
+        navigate(`/messages/${item.id}`)
+    }
 
     return(
         <div>
                 <List
                     itemLayout="horizontal"
-                    dataSource={reduxUsers}
+                    dataSource={redux.users}
                     renderItem={(item) => (
                         <List.Item>
 
                                 <List.Item.Meta
                                     avatar={<UserImage id={item.image_id} />}
-                                    description={<Link to={`/users/${item.id}`}>{item.name} {item.id}</Link>}
+                                    description={<Link to={`/users/${item.id}`}>{item.name} {item.id} </Link> }
+                                    title={<button onClick={()=>onMessage(item)}>Messages</button>}
                                 />
 
                         </List.Item>

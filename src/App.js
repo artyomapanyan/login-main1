@@ -11,6 +11,7 @@ import {LoginPage} from "./Components/LoginPage/LoginPage";
 import {LogOut} from "./Components/LogOut/LogOut.js";
 import {Users} from "./Components/Users/Users.js";
 import RoutePermission from "./Components/Fragments/RoutePermission";
+import {Messages} from "./Components/LoginPage/Messages";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -36,6 +37,7 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
 function App() {
 
     const navigate = useNavigate()
+
     return <Layout>
         <Header className="header">
             <Row>
@@ -106,6 +108,7 @@ function App() {
                         <Route exact path={'test'} element={<RoutePermission checkAuth={true}><LoginPage /></RoutePermission>} />
                         <Route exact path={'users'} element={<Users />} />
                         <Route exact path={'users/:id'} element={<LoginPage />} />
+                        <Route exact path={'messages/:id'} element={<Messages />} />
                     </Routes>
 
                 </Content>
