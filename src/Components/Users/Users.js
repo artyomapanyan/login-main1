@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { List } from 'antd';
+import {Input, List} from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import UserImage from "../Fragments/UserImage.js";
+import {Form, Select} from 'antd';
 import moment from "moment";
+import {UserOutlined} from "@ant-design/icons";
 
 
 function Users() {
@@ -12,15 +14,61 @@ function Users() {
 
     const navigate = useNavigate()
 
+    const [filterState, setFilterState] = useState({})
+
     const onMessage = (item) => {
         navigate(`/messages/${item.id}`)
     }
 
+    const onFinish = (changed,values) => {
+         console.log(values)
+        setFilterState(values)
+    }
+    console.log(redux.users)
+    console.log(redux.users.filter(el =>
+        ((filterState.filter_name?.length  && el.name.includes(filterState.filter_name)) || !filterState.filter_name?.length ) &&
+        ((filterState.filter_id?.length  && el.id==filterState.filter_id) || !filterState.filter_id?.length )),filterState)
+
     return(
         <div>
+            <Form
+                wrapperCol={{
+                    span: 4,
+                }}
+
+                onValuesChange={onFinish}
+                onFinish={onFinish}
+            >
+
+                <Form.Item
+                    label="Filter Name"
+                    name="filter_name"
+                     rules={[
+                        {
+
+                        },
+                    ]}
+                >
+                    <Input  />
+                </Form.Item>
+                <Form.Item
+                    label="Filter Id"
+                    name="filter_id"
+                    rules={[
+                        {
+                        },
+                    ]}
+                >
+                    <Input  />
+                </Form.Item>
+
+
+            </Form>
                 <List
                     itemLayout="horizontal"
-                    dataSource={redux.users}
+                    dataSource={redux.users.filter(el =>
+                        ((filterState.filter_name?.length  && el.name.includes(filterState.filter_name)) || !filterState.filter_name?.length ) &&
+                        ((filterState.filter_id?.length  && el.id==filterState.filter_id) || !filterState.filter_id?.length))}
                     renderItem={(item) => (
                         <List.Item>
 

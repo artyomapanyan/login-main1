@@ -61,21 +61,20 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                     },
                 ]}
             >
-                <Input onKeyPress={handleKeyPress} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                <Input onKeyPress={onFinish} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
             </Form.Item>
             <Form.Item
                 name="password"
                 rules={[
                     {
-                        required: true,
-                        message: 'Please input your Password!',
+
                     },
                 ]}
             >
                 <Input
-                    onKeyPress={handleKeyPress}
-                    prefix={<LockOutlined className="site-form-item-icon" />}
-                    type="password"
+                    onKeyPress={onFinish}
+
+                    type="text"
                     placeholder="Password"
                 />
             </Form.Item>
