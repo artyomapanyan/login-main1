@@ -3,6 +3,7 @@ import {Checkbox, Form, Input, Modal, DatePicker, Space} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import moment from "moment";
+import axios from "axios";
 
 function RegisterModal({setIsModalOpen1,isModalOpen1}){
     let usersRedux = useSelector((state) => state.users)
@@ -18,6 +19,23 @@ function RegisterModal({setIsModalOpen1,isModalOpen1}){
         setIsModalOpen1(false);
     };
     const onFinish = (values) => {
+        console.log(values)
+        axios.get(`http://ffa/sanctum/csrf-cookie`).then(response => {
+            const Data = new FormData();
+
+            Data.append('email', values.email)
+            Data.append('password', values.password)
+            Data.append('password_confirmation', values.password_confirmation)
+            Data.append('device_name', values.device_name)
+            axios.request( {
+                method:'POST',
+                url:`https://app.kideroapp.com/api/v1/auth/register`
+            }).then((response) => {
+                console.log("sdfsdf",Data)
+            }).catch(e => {
+                console.log(e)
+            })
+        })
             dispatch({
                 type:'register',
                 payload:{

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Input, List} from 'antd';
+import {Button, Input, List, Popconfirm} from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import UserImage from "../Fragments/UserImage.js";
 import {Form, Select} from 'antd';
@@ -77,7 +77,9 @@ function Users() {
                                     description={<Link to={`/users/${item.id}`}>{item.name} {item.id} </Link> }
                                     title={<button onClick={()=>onMessage(item)}>Messages</button>}
                                 />
-
+                            <Popconfirm title="Are you sure delete this task?" okText="Yes" cancelText="No">
+                                <Button>Confirm</Button>
+                            </Popconfirm>
                         </List.Item>
                     )}
                 />

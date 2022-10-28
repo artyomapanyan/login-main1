@@ -12,6 +12,9 @@ import {LogOut} from "./Components/LogOut/LogOut.js";
 import {Users} from "./Components/Users/Users.js";
 import RoutePermission from "./Components/Fragments/RoutePermission";
 import {Messages} from "./Components/LoginPage/Messages";
+import {AgeCategoryNatues} from "./Components/AgeCategoryNatures/AgeCategoryNatues";
+import {AgeCategoryNatue} from "./Components/AgeCategoryNatures/AgeCategoryNature";
+import {SinglCategories} from "./Components/SinglCategories/SinglCategories";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -109,6 +112,10 @@ function App() {
                         <Route exact path={'users'} element={<Users />} />
                         <Route exact path={'users/:id'} element={<LoginPage />} />
                         <Route exact path={'messages/:id'} element={<Messages />} />
+                        <Route exact path={'age-categories/new'} element={<AgeCategoryNatue />} />
+                        <Route exact path={'age-categories'} element={<AgeCategoryNatues />} />
+                        <Route exact path={'singl-categories'} element={<SinglCategories/>} />
+
                     </Routes>
 
                 </Content>

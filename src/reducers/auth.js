@@ -1,10 +1,8 @@
-export default function auth(state = {
-    user:{}
-}, action){
+export default function auth(state = {}, action){
 
     if(action.type === 'LOGIN'){
         return {
-            user:action.payload
+            ...action.payload
         }
     }
     if(action.type === 'LOGOUT'){

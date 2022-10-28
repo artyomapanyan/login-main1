@@ -3,6 +3,8 @@ import { Form, Input, Modal} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
+import api from "../../api";
+import moment from "moment/moment";
 
 function LoginModal({setIsModalOpen,isModalOpen}){
     let reduxState = useSelector((state) => state)
@@ -21,20 +23,26 @@ function LoginModal({setIsModalOpen,isModalOpen}){
 
     const onFinish = (values) => {
         let user =  reduxState.users.find(el =>el.name === values.name && el.password === values.password)
-        if(user) {
+        fetch(api.Auth.login.url,{
+            method: api.Auth.login.method,
+            body: JSON.stringify(values),
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        }).then(resp=>resp.json()).then(response=>{
+            console.log(response)
             dispatch({
                 type:'LOGIN',
-                payload:user
+                payload:{
+                    ...response.payload.Auth,
+                    access_token: "Bearer " + response.payload.Auth.access_token
+                }
             })
-
-            formRef.current.resetFields()
-            navigate("test");
-            setIsModalOpen(false);
-        } else {
-            alert("неправильное имя пользователя или пароль")
-        }
-
+        })
+        //setIsModalOpen(false);
     };
+
     const handleKeyPress = (event)=>{
         if(event.key === 'Enter'){
             formRef.current.submit();
@@ -53,7 +61,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
 
         >
             <Form.Item
-                name="name"
+                name="email"
                 rules={[
                     {
                         required: true,
