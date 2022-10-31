@@ -11,15 +11,12 @@ function UpdateModal({isModalOpen2, setIsModalOpen2}) {
     let userRedux = useSelector((state) => state.auth.user)
     const {Images} =Configs;
     let imagesKey = Object.keys(Images)
-    //console.log("Images", imagesKey)
     let dispatch = useDispatch()
 
     const formRef = useRef();
     const handleOk = () => {
-        //console.log(formRef.current)
         formRef.current.submit()
     };
-
 
     const handleCancel = () => {
         setIsModalOpen2(false);
@@ -32,7 +29,6 @@ function UpdateModal({isModalOpen2, setIsModalOpen2}) {
                 ...userRedux,
                 ...values,
                 date_of_birth:moment(values.date_of_birth).format('DD-MM-YYYY')
-
             }
         })
         formRef.current.resetFields();
@@ -64,16 +60,6 @@ function UpdateModal({isModalOpen2, setIsModalOpen2}) {
                     required: true,
                     message: 'Please input your Username!',
                 },
-                // {
-                //     validator:(rule, value)=>{
-                //         if(userRedux.find(el => el.name === value)){
-                //             return Promise.reject('такое имя уже существует')
-                //
-                //         }
-                //         return Promise.resolve()
-                //
-                //     }
-                //}
             ]}
 
         >
@@ -95,13 +81,9 @@ function UpdateModal({isModalOpen2, setIsModalOpen2}) {
             name="image_id"
         >
            <Select>
-
                {
                    imagesKey.map((el) => (<Select.Option key={el}><UserImage id={el} /></Select.Option>))
                }
-
-
-
            </Select>
         </Form.Item>
     </Form>

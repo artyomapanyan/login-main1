@@ -15,6 +15,8 @@ import {Messages} from "./Components/LoginPage/Messages";
 import {AgeCategoryNatues} from "./Components/AgeCategoryNatures/AgeCategoryNatues";
 import {AgeCategoryNatue} from "./Components/AgeCategoryNatures/AgeCategoryNature";
 import {SinglCategories} from "./Components/SinglCategories/SinglCategories";
+import {MatchEventNatures} from "./Components/MatchEventNatures/MatchEventNatures";
+import {CreateMatchEventNatures} from "./Components/MatchEventNatures/CreateMatchEventNatures";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -114,7 +116,11 @@ function App() {
                         <Route exact path={'messages/:id'} element={<Messages />} />
                         <Route exact path={'age-categories/new'} element={<AgeCategoryNatue />} />
                         <Route exact path={'age-categories'} element={<AgeCategoryNatues />} />
-                        <Route exact path={'singl-categories'} element={<SinglCategories/>} />
+                        <Route exact path={'age-categories/:id'} element={<SinglCategories/>} />
+                        <Route exact path={'match-event-natures/new'} element={<CreateMatchEventNatures />} />
+                        <Route exact path={'match-event-natures/:id'} element={<CreateMatchEventNatures />} />
+                        <Route exact path={'match-event-natures'} element={<MatchEventNatures />} />
+
 
                     </Routes>
 

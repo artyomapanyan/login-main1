@@ -1,13 +1,26 @@
 import {Button, DatePicker, Form, Input} from "antd";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
+import {createSingleItem} from "../../ApiCalls";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+
 
 function AgeCategoryNatue() {
-
+    let authRedux = useSelector((state) => state.auth)
     const formRef = useRef();
+    const navigate = useNavigate()
+
+    const [loading,setLoading] = useState(false);
+
+
 
     const onFinish = (values) => {
-        console.log(values)
+        setLoading(true)
+        createSingleItem(authRedux.access_token,'AgeCategoryNature', values).then((e)=>{
+            console.log(e)
+            navigate(`/age-categories/${e.id}`)
+        })
+
     }
 
     const handleKeyPress = (event) => {
@@ -67,7 +80,7 @@ function AgeCategoryNatue() {
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit">
+                    <Button type="primary" loading={loading} htmlType="submit">
                         Submit
                     </Button>
                 </Form.Item>
