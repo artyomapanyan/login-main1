@@ -1,4 +1,4 @@
-import {Button, Space, Table} from 'antd';
+import {Button, Modal, Space, Table} from 'antd';
 import React, {useEffect, useState} from 'react';
 import {deleteSingleItem, getList} from "../../ApiCalls";
 import {useSelector} from "react-redux";
@@ -50,13 +50,21 @@ function ResourceTable({tableColumns,resource, itemroute,tableBelowButton}) {
             title: "Remove",
             dataIndex: 'id',
             key: 'id',
-            render:(e)=><Space>
+            render:(e, v)=><Space>
                 <Button type={"primary"} onClick={() => onDeleteItem(e)}>X</Button>
                 <Button type={'secondary'} onClick={() => onUpdateItem(e)}>Update</Button>
+                <Button type={'secondary'} onClick={() => onShowJson(v)}>Show</Button>
             </Space>
         },
 
     ];
+    const onShowJson = (v)=>{
+        Modal.info({
+            content: JSON.stringify({...v,
+                                          number: v.id+1})
+        })
+
+    }
    const onUpdateItem = (id)=>{
         navigate(itemroute+id)
     }
@@ -65,7 +73,7 @@ function ResourceTable({tableColumns,resource, itemroute,tableBelowButton}) {
         navigate(itemroute+'new')
     }
 
-
+console.log("asd", data)
 
     return(
         <div>

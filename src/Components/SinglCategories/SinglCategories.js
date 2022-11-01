@@ -10,11 +10,10 @@ function SinglCategories() {
 
     const navigate = useNavigate();
     const params = useParams();
-    const [loading,setLoading] = useState(true)
 
+    const [loading,setLoading] = useState(true)
     const [ageCategoryState, setAgeCategoryState] = useState({});
 
-    console.log(params,"ddddd")
     useEffect(()=>{
         setLoading(true)
         getSinglItem(authRedux.access_token,'AgeCategoryNature', params.id).then(ageCategory=>{

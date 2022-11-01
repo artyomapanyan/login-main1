@@ -17,6 +17,11 @@ import {AgeCategoryNatue} from "./Components/AgeCategoryNatures/AgeCategoryNatur
 import {SinglCategories} from "./Components/SinglCategories/SinglCategories";
 import {MatchEventNatures} from "./Components/MatchEventNatures/MatchEventNatures";
 import {CreateMatchEventNatures} from "./Components/MatchEventNatures/CreateMatchEventNatures";
+import {ApdateMatchEventNatures} from "./Components/MatchEventNatures/ApdateMatchEventNatures";
+import {Location} from "./Components/Location/Location";
+import {GateType} from "./Components/GateType/GateType";
+import {CreateAndUpdateGateType, CreateGateType} from "./Components/GateType/CreateAndUpdateGateType";
+import {Locat} from "./Components/Location/Locat";
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,6 +42,8 @@ const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, i
         }),
     };
 });
+
+
 
 
 function App() {
@@ -118,9 +125,14 @@ function App() {
                         <Route exact path={'age-categories'} element={<AgeCategoryNatues />} />
                         <Route exact path={'age-categories/:id'} element={<SinglCategories/>} />
                         <Route exact path={'match-event-natures/new'} element={<CreateMatchEventNatures />} />
-                        <Route exact path={'match-event-natures/:id'} element={<CreateMatchEventNatures />} />
                         <Route exact path={'match-event-natures'} element={<MatchEventNatures />} />
-
+                        <Route exact path={'match-event-natures/:id'} element={<ApdateMatchEventNatures />} />
+                        <Route exact path={'location'} element={<Location />} />
+                        <Route exact path={'location/new'} element={<Locat />} />
+                        <Route exact path={'location/:id'} element={<Locat />} />
+                        <Route exact path={'gate-type'} element={<GateType />} />
+                        <Route exact path={'gate-type/new'} element={<CreateAndUpdateGateType />} />
+                        <Route exact path={'gate-type/:id'} element={<CreateAndUpdateGateType />} />
 
                     </Routes>
 

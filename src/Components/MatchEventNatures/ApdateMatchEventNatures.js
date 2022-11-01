@@ -1,30 +1,38 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {Button, Form, Input, Select, Spin} from "antd";
-import { createSingleItem, getAll} from "../../ApiCalls";
+import {createSingleItem, getAll, getSinglItem, updateSingleItem} from "../../ApiCalls";
 import {useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 
-function CreateMatchEventNatures() {
+function ApdateMatchEventNatures() {
     let authRedux = useSelector((state) => state.auth)
     const formRef = useRef();
     const navigate = useNavigate();
+    const params = useParams();
+    const [matchEventState, setMatchEventState] = useState({});
+    const [loading,setLoading] = useState(true);
     const [disciplinState, setDisciplinState] = useState([]);
-    const [loading,setLoading] = useState(false);
 
     const onFinish = (values) => {
-        setLoading(true)
-        createSingleItem(authRedux.access_token,'MatchEventNature', values).then((e)=>{
-
-            navigate(`/match-event-natures`)
+        setLoading(true);
+        updateSingleItem(authRedux.access_token,'MatchEventNature', params.id, values).then((e)=>{
+            setMatchEventState(e);
+            setLoading(false);
+            navigate("/match-event-natures")
         })
     }
 
     useEffect(()=>{
-        getAll(authRedux.access_token,'Discipline').then((e)=>{
-            setDisciplinState(e)
+        setLoading(true)
+        Promise.all([
+            getSinglItem(authRedux.access_token,'MatchEventNature', params.id),
+            getAll(authRedux.access_token,'Discipline')
+        ]).then(responses=>{
+            setMatchEventState(responses[0])
+            setDisciplinState(responses[1])
+            setLoading(false)
         })
-
     },[])
 
 
@@ -34,21 +42,22 @@ function CreateMatchEventNatures() {
         }
     }
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
-
+console.log(matchEventState)
     return (
         <div>
-            <Form
+            {loading?<Spin/>:<Form
                 ref={formRef}
                 name="normal_login"
-                className="login-form"
                 onFinish={onFinish}
+                initialValues={{
+                    ...matchEventState,
+                    disciplines:matchEventState?.disciplines?.map(e=>e.id)
+            }}
             >
                 <Form.Item
-                    label={'anvanwum'}
+                    label={'anvanum'}
                     name="name"
+
                     rules={[
                         {
                             required: true,
@@ -67,19 +76,18 @@ function CreateMatchEventNatures() {
                             message: 'Please input name!',
                         }
                     ]}>
-                <Select
-                    mode={'multiple'}
-                    style={{
-                        width: 300,
-                    }}
-                    onChange={handleChange}
-                >
-                    {disciplinState.map((el) => {
-                        return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>
+                    <Select
+                        mode={'multiple'}
+                        style={{
+                            width: 300,
+                        }}
+                    >
+                        {disciplinState.map((el) => {
+                            return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>
 
-                    })}
-                </Select>
-            </Form.Item>
+                        })}
+                    </Select>
+                </Form.Item>
                 <Form.Item
                     wrapperCol={{
                         offset: 8,
@@ -90,9 +98,9 @@ function CreateMatchEventNatures() {
                         Submit
                     </Button>
                 </Form.Item>
-            </Form>
+            </Form>}
         </div>
     )
 }
 
-export {CreateMatchEventNatures}
+export {ApdateMatchEventNatures}
