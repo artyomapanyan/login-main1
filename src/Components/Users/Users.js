@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Button, Input, List, Popconfirm} from 'antd';
+import {AutoComplete, Button, Input, List, Popconfirm} from 'antd';
 import {Link, useNavigate} from "react-router-dom";
 import UserImage from "../Fragments/UserImage.js";
 import {Form, Select} from 'antd';
@@ -21,16 +21,17 @@ function Users() {
     }
 
     const onFinish = (changed,values) => {
-         console.log(values)
         setFilterState(values)
     }
-    console.log(redux.users)
-    console.log(redux.users.filter(el =>
-        ((filterState.filter_name?.length  && el.name.includes(filterState.filter_name)) || !filterState.filter_name?.length ) &&
-        ((filterState.filter_id?.length  && el.id==filterState.filter_id) || !filterState.filter_id?.length )),filterState)
+    // console.log(redux.users.filter(el =>
+    //     ((filterState.filter_name?.length  && el.name.includes(filterState.filter_name)) || !filterState.filter_name?.length ) &&
+    //     ((filterState.filter_id?.length  && el.id==filterState.filter_id) || !filterState.filter_id?.length )),filterState)
+
+
 
     return(
         <div>
+
             <Form
                 wrapperCol={{
                     span: 4,
@@ -49,7 +50,7 @@ function Users() {
                         },
                     ]}
                 >
-                    <Input  />
+                    <Input.Search  />
                 </Form.Item>
                 <Form.Item
                     label="Filter Id"
@@ -59,9 +60,8 @@ function Users() {
                         },
                     ]}
                 >
-                    <Input  />
+                    <Input.Search  />
                 </Form.Item>
-
 
             </Form>
                 <List

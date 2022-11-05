@@ -22,7 +22,6 @@ function Comments({User}) {
 
 
     const handleSubmit = (values) => {
-        console.log(values, isUpdate)
         formRef.current.resetFields()
 
         !isUpdate ? dispatch({
@@ -80,7 +79,6 @@ function Comments({User}) {
     }
 
     const onUpdateComment = (comment) => {
-        console.log(comment)
         formRef.current.setFieldsValue({
             comment: comment.comment,
         })

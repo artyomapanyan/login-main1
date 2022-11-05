@@ -5,24 +5,25 @@ import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
 
 
-function CreateAndUpdateGateType() {
+function CreateAndUpdateTeamOfficialRole() {
     let authRedux = useSelector((state) => state.auth)
     const formRef = useRef();
     const navigate = useNavigate();
     const params = useParams();
     const [gateTypeState, setGateTypeState] = useState({});
     const [loading,setLoading] = useState(false);
+    const [DocumentTypeState, setDocumentTypeState] = useState([]);
 
     const onFinish = (values) => {
         setLoading(true)
         if(params.id){
-            updateSingleItem(authRedux.access_token,'GateType', params.id, values).then((e)=>{
+            updateSingleItem(authRedux.access_token,'TeamOfficialRole', params.id, values).then((e)=>{
                 setGateTypeState(e)
                 setLoading(false);
             })
         }else{
-            createSingleItem(authRedux.access_token,'GateType',  values).then((e)=>{
-                navigate(`/gate-type/${e.id}`)
+            createSingleItem(authRedux.access_token,'TeamOfficialRole',  values).then((e)=>{
+                navigate(`/team-official-role/${e.id}`)
             })
         }
 
@@ -31,12 +32,14 @@ function CreateAndUpdateGateType() {
     useEffect(()=>{
         setLoading(true)
         Promise.all([
-            params.id?getSinglItem(authRedux.access_token,'GateType', params.id):{},
+            params.id?getSinglItem(authRedux.access_token,'TeamOfficialRole', params.id):{},
+            getAll(authRedux.access_token,'DocumentType')
         ]).then(responses=>{
             setGateTypeState(responses[0])
+            setDocumentTypeState(responses[1])
             setLoading(false)
         })
-    },[params.id])
+    },[])
 
 
     const handleKeyPress = (event) => {
@@ -44,14 +47,17 @@ function CreateAndUpdateGateType() {
             formRef.current.submit();
         }
     }
+
+    console.log(gateTypeState, DocumentTypeState)
     return (
         <div>
             {loading ? <spin />:<Form
                 ref={formRef}
                 name="GateType"
-                className="create-gate-type"
                 onFinish={onFinish}
-                initialValues={{...gateTypeState}}
+                initialValues={{...gateTypeState,
+                    required_document_types: gateTypeState?.required_document_types?.map(el => el.id)
+                }}
             >
                 <Form.Item
                     label={'anvanum'}
@@ -66,12 +72,36 @@ function CreateAndUpdateGateType() {
                     <Input onKeyPress={handleKeyPress} placeholder="Name"/>
                 </Form.Item>
                 <Form.Item
+
+                    label={'document types'}
+                    name="required_document_types"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input name!',
+                        }
+                    ]}>
+                    <Select
+                        mode={'multiple'}
+                        style={{
+                            width: 300,
+                        }}
+                    >
+                        {DocumentTypeState.map((el) => {
+                            return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>
+
+                        })}
+                    </Select>
+
+
+                </Form.Item>
+                <Form.Item
                     wrapperCol={{
                         offset: 8,
                         span: 16,
                     }}
                 >
-                    <Button type="primary" htmlType="submit" loading={loading}>
+                    <Button type="primary" htmlType="submit">
                         Submit
                     </Button>
                 </Form.Item>
@@ -80,4 +110,4 @@ function CreateAndUpdateGateType() {
     )
 }
 
-export {CreateAndUpdateGateType}
+export {CreateAndUpdateTeamOfficialRole}

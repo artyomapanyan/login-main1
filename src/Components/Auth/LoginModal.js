@@ -8,7 +8,6 @@ import moment from "moment/moment";
 
 function LoginModal({setIsModalOpen,isModalOpen}){
     let reduxState = useSelector((state) => state)
-    //console.log(reduxState)
     let dispatch = useDispatch()
 
     let navigate = useNavigate();
@@ -69,7 +68,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                     },
                 ]}
             >
-                <Input onKeyPress={onFinish} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                <Input onKeyPress={onFinish} onKeyPress={handleKeyPress} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
             </Form.Item>
             <Form.Item
                 name="password"
@@ -81,7 +80,7 @@ function LoginModal({setIsModalOpen,isModalOpen}){
             >
                 <Input
                     onKeyPress={onFinish}
-
+                    onKeyPress={handleKeyPress}
                     type="text"
                     placeholder="Password"
                 />

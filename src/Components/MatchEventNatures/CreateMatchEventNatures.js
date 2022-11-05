@@ -34,9 +34,6 @@ function CreateMatchEventNatures() {
         }
     }
 
-    const handleChange = (value) => {
-        console.log(`selected ${value}`);
-    };
 
     return (
         <div>
@@ -72,7 +69,6 @@ function CreateMatchEventNatures() {
                     style={{
                         width: 300,
                     }}
-                    onChange={handleChange}
                 >
                     {disciplinState.map((el) => {
                         return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>

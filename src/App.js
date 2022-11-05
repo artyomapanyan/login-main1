@@ -1,10 +1,10 @@
 
 import './App.css';
-import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
-import {Breadcrumb, Col, Layout, Menu, Row} from 'antd';
-import React from 'react';
+import { SearchOutlined} from '@ant-design/icons';
+import {Breadcrumb, Col, Collapse, Layout, Menu, Row} from 'antd';
+import React, {useState} from 'react';
 import 'antd/dist/antd.css'
-import {Route, Routes, useNavigate} from "react-router-dom";
+import { Route, Routes, useNavigate} from "react-router-dom";
 import {LoggedId} from './Functions'
 import AuthModal from "./Components/Auth/AuthModal";
 import {LoginPage} from "./Components/LoginPage/LoginPage";
@@ -20,31 +20,37 @@ import {CreateMatchEventNatures} from "./Components/MatchEventNatures/CreateMatc
 import {ApdateMatchEventNatures} from "./Components/MatchEventNatures/ApdateMatchEventNatures";
 import {Location} from "./Components/Location/Location";
 import {GateType} from "./Components/GateType/GateType";
-import {CreateAndUpdateGateType, CreateGateType} from "./Components/GateType/CreateAndUpdateGateType";
+import {CreateAndUpdateGateType} from "./Components/GateType/CreateAndUpdateGateType";
 import {Locat} from "./Components/Location/Locat";
+import {TeamOfficialRole} from "./Components/TeamOfficialRole/TeamOfficialRole";
+import {CreateAndUpdateTeamOfficialRole} from "./Components/TeamOfficialRole/CreateAndUpdateTeamOfficialRole";
+
 
 
 const { Header, Content, Footer, Sider } = Layout;
 
-
-const items2 = [UserOutlined, LaptopOutlined, NotificationOutlined].map((icon, index) => {
-    const key = String(index + 1);
-    return {
-        key: `sub${key}`,
-        icon: React.createElement(icon),
-        label: `subnav ${key}`,
-        children: new Array(4).fill(null).map((_, j) => {
-            const subKey = index * 4 + j + 1;
-            return {
-                key: subKey,
-                label: `option${subKey}`,
-            };
-        }),
-    };
-});
-
-
-
+    const items1 = [
+        {
+            key: `/age-categories`,
+            label: `Age categories`,
+        },
+        {
+            key: `/match-event-natures`,
+            label: `Match event natures`,
+        },
+        {
+            key: `/location`,
+            label: `Location`,
+        },
+        {
+            key: `/gate-type`,
+            label: `Gate type`,
+        },
+        {
+            key: 'team-official-role',
+            label: `Team official role`,
+        }
+    ]
 
 function App() {
 
@@ -107,7 +113,8 @@ function App() {
                         style={{
                             height: '100%',
                         }}
-                        items={items2}
+                        items={items1}
+                        onClick={e=>navigate(e.key)}
                     />
                 </Sider>
                 <Content
@@ -133,6 +140,9 @@ function App() {
                         <Route exact path={'gate-type'} element={<GateType />} />
                         <Route exact path={'gate-type/new'} element={<CreateAndUpdateGateType />} />
                         <Route exact path={'gate-type/:id'} element={<CreateAndUpdateGateType />} />
+                        <Route exact path={'team-official-role'} element={<TeamOfficialRole />} />
+                        <Route exact path={'team-official-role/new'} element={<CreateAndUpdateTeamOfficialRole />} />
+                        <Route exact path={'team-official-role/:id'} element={<CreateAndUpdateTeamOfficialRole />} />
 
                     </Routes>
 

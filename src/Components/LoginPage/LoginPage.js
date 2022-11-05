@@ -1,6 +1,6 @@
 
 import {useSelector} from "react-redux";
-import {Button, Card} from "antd";
+import {Button, Card, Collapse} from "antd";
 import {UpdateModal} from "./UpdateModal";
 import {UpdatePasswordModal} from "./UpdatePasswordModal";
 import {Comments} from "./Comments";
@@ -31,7 +31,6 @@ function LoginPage() {
 
     return(
         <div>
-
                 <Card
                     hoverable
                     style={{

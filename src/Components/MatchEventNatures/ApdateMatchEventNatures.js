@@ -42,7 +42,6 @@ function ApdateMatchEventNatures() {
         }
     }
 
-console.log(matchEventState)
     return (
         <div>
             {loading?<Spin/>:<Form

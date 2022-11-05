@@ -17,7 +17,6 @@ function AgeCategoryNatue() {
     const onFinish = (values) => {
         setLoading(true)
         createSingleItem(authRedux.access_token,'AgeCategoryNature', values).then((e)=>{
-            console.log(e)
             navigate(`/age-categories/${e.id}`)
         })
 

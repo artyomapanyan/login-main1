@@ -1,12 +1,13 @@
 import React from 'react';
 import {ResourceTable} from "../Fragments/ResourceTable";
 
-function MatchEventNatures(){
+
+function TeamOfficialRole(){
 
     return<ResourceTable
-        itemroute={"/match-event-natures/"}
+        itemroute={"/team-official-role/"}
         //tableBelowButton={(data,setData)=><Button type={'primary'} onClick={()=>setData([])}>{data.length}</Button> }
-        resource={'MatchEventNature'}
+        resource={'TeamOfficialRole'}
         tableColumns={[
             {
                 title:'Anun',
@@ -14,16 +15,16 @@ function MatchEventNatures(){
                 dataIndex:'name'
             },
             {
-                title:'Marzadzever',
-                key:'disciplines',
-                dataIndex:'disciplines',
+                title:'Fifa name',
+                key:'DocumentType',
+                dataIndex:'DocumentType',
                 render:(i,record)=>{
-                    //console.log(i,record)
-                    return i?.map(discipline=><div key={discipline.id}>{discipline.name}</div>)
+                    //console.log("sssssssddddd",record)
+                    return record.fifa_name
                 }
             }
         ]}
     />
 
 }
-export {MatchEventNatures}
+export {TeamOfficialRole}

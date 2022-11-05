@@ -37,7 +37,6 @@ function Locat() {
         ]).then(responses=>{
             setLocationState(responses[0])
             setLocationTypeState(responses[1])
-            // console.log(responses[0], responses[1])
             setLoading(false)
         })
     },[params.id])

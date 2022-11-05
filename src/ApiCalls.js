@@ -91,7 +91,3 @@ export function getAll(token,resource){
     return str.join("&");
 }
 
-console.log(serialize({
-    foo: "hi there",
-    bar: "100%"
-}))
