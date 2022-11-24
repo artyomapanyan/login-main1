@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Form, Input, Select} from "antd";
+import {Button, Form, Input, Select, Spin} from "antd";
 import {createSingleItem, getAll, getSinglItem, updateSingleItem} from "../../ApiCalls";
 import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
@@ -26,7 +26,6 @@ function CreateAndUpdateTeamOfficialRole() {
                 navigate(`/team-official-role/${e.id}`)
             })
         }
-
     }
 
     useEffect(()=>{
@@ -41,17 +40,15 @@ function CreateAndUpdateTeamOfficialRole() {
         })
     },[])
 
-
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             formRef.current.submit();
         }
     }
 
-    console.log(gateTypeState, DocumentTypeState)
     return (
         <div>
-            {loading ? <spin />:<Form
+            {loading ? <Spin />:<Form
                 ref={formRef}
                 name="GateType"
                 onFinish={onFinish}
@@ -72,7 +69,6 @@ function CreateAndUpdateTeamOfficialRole() {
                     <Input onKeyPress={handleKeyPress} placeholder="Name"/>
                 </Form.Item>
                 <Form.Item
-
                     label={'document types'}
                     name="required_document_types"
                     rules={[
@@ -89,11 +85,8 @@ function CreateAndUpdateTeamOfficialRole() {
                     >
                         {DocumentTypeState.map((el) => {
                             return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>
-
                         })}
                     </Select>
-
-
                 </Form.Item>
                 <Form.Item
                     wrapperCol={{

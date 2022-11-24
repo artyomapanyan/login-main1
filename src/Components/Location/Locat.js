@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Form, Input, Select} from "antd";
+import {Button, Form, Input, Select, Spin} from "antd";
 import {createSingleItem, getAll, getSinglItem, updateSingleItem} from "../../ApiCalls";
 import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
@@ -10,47 +10,46 @@ function Locat() {
     const formRef = useRef();
     const navigate = useNavigate();
     const params = useParams();
+
     const [locationState, setLocationState] = useState({});
     const [locationTypeState, setLocationTypeState] = useState([]);
-    const [loading,setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const onFinish = (values) => {
         setLoading(true)
-        if(params.id){
-            updateSingleItem(authRedux.access_token,'Location', params.id, values).then((e)=>{
+        if (params.id) {
+            updateSingleItem(authRedux.access_token, 'Location', params.id, values).then((e) => {
                 setLocationState(e)
                 setLoading(false);
             })
-        }else{
-            createSingleItem(authRedux.access_token,'Location',  values).then((e)=>{
+        } else {
+            createSingleItem(authRedux.access_token, 'Location', values).then((e) => {
                 navigate(`/location/${e.id}`)
             })
         }
-
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setLoading(true)
         Promise.all([
-            params.id?getSinglItem(authRedux.access_token,'Location', params.id):{},
-            getAll(authRedux.access_token,'LocationType')
-        ]).then(responses=>{
+            params.id ? getSinglItem(authRedux.access_token, 'Location', params.id) : {},
+            getAll(authRedux.access_token, 'LocationType')
+        ]).then(responses => {
             setLocationState(responses[0])
             setLocationTypeState(responses[1])
             setLoading(false)
         })
-    },[params.id])
-
+    }, [params.id])
 
     const handleKeyPress = (event) => {
-        if(event.key === 'Enter'){
+        if (event.key === 'Enter') {
             formRef.current.submit();
         }
     }
 
     return (
         <div>
-            {loading ? <spin />:<Form
+            {loading ? <Spin/> : <Form
                 ref={formRef}
                 name="location"
                 className="create-location"

@@ -10,6 +10,7 @@ function ApdateMatchEventNatures() {
     const formRef = useRef();
     const navigate = useNavigate();
     const params = useParams();
+
     const [matchEventState, setMatchEventState] = useState({});
     const [loading,setLoading] = useState(true);
     const [disciplinState, setDisciplinState] = useState([]);
@@ -35,7 +36,6 @@ function ApdateMatchEventNatures() {
         })
     },[])
 
-
     const handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             formRef.current.submit();
@@ -56,7 +56,6 @@ function ApdateMatchEventNatures() {
                 <Form.Item
                     label={'anvanum'}
                     name="name"
-
                     rules={[
                         {
                             required: true,
@@ -83,7 +82,6 @@ function ApdateMatchEventNatures() {
                     >
                         {disciplinState.map((el) => {
                             return <Select.Option key={el.id} value={el.id}>{el.name}</Select.Option>
-
                         })}
                     </Select>
                 </Form.Item>

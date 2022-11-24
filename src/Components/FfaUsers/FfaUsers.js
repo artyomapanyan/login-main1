@@ -1,20 +1,20 @@
 import React from 'react';
 
-import {Link} from "react-router-dom";
 
 import {ResourceTable} from "../Fragments/ResourceTable";
+import {Link} from "react-router-dom";
 import {TableUpdate} from "../Fragments/TableUpdate";
 
 
-function GateType() {
+function FfaUsers() {
 
     return(
         <ResourceTable
-            resource={'GateType'}
-            itemroute={"/gate-type/"}
+            resource={'User'}
+            itemroute={"/ffa-users/"}
             tableColumns={[
                 {
-                    title: 'Name',
+                    title: 'Անուն',
                     dataIndex: 'name',
                     key: 'name',
                     render:(e,record)=>{
@@ -22,9 +22,15 @@ function GateType() {
                                             dataIndex={'name'}/>
                     }
                 },
+                {
+                    title: 'Էլ․Փոստ',
+                    dataIndex: 'email',
+                    key: 'email',
+                },
+
             ]}
         />
     )
 }
 
-export {GateType}
+export {FfaUsers}

@@ -75,8 +75,8 @@ export function getAll(token,resource){
             'Content-Type': 'application/json',
         },
     }).then(resp=>resp.json()).then(e => e.payload[resource].data)
-
 }
+
 
 
 

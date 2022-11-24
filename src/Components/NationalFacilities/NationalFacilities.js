@@ -3,20 +3,21 @@ import {ResourceTable} from "../Fragments/ResourceTable";
 import {TableUpdate} from "../Fragments/TableUpdate";
 
 
-function TeamOfficialRole(){
+function NationalFacilities(){
 
     return<ResourceTable
-        itemroute={"/team-official-role/"}
+        itemroute={"/national-facilities/"}
         //tableBelowButton={(data,setData)=><Button type={'primary'} onClick={()=>setData([])}>{data.length}</Button> }
-        resource={'TeamOfficialRole'}
+        resource={'NationalFacility'}
         tableColumns={[
             {
                 title:'Anun',
-                key:'name',
+                key:'local_name',
                 dataIndex:'name',
-                render:(e,record)=>{
-                    return <TableUpdate recordTableName={record}
-                                        dataIndex={'name'}/>
+                render:(i,record)=>{
+                    return <TableUpdate recordTableName={record.local_name}
+                    dataIndex={'name'}/>
+
                 }
             },
             {
@@ -24,11 +25,12 @@ function TeamOfficialRole(){
                 key:'DocumentType',
                 dataIndex:'DocumentType',
                 render:(i,record)=>{
-                    return record.fifa_name
+                    return record.location.name
+
                 }
             }
         ]}
     />
 
 }
-export {TeamOfficialRole}
+export {NationalFacilities}

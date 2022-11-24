@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Button, Form, Input, Select} from "antd";
+import {Button, Form, Input, Select, Spin} from "antd";
 import {createSingleItem, getAll, getSinglItem, updateSingleItem} from "../../ApiCalls";
 import {useSelector} from "react-redux";
 import {useNavigate, useParams} from "react-router-dom";
@@ -46,7 +46,7 @@ function CreateAndUpdateGateType() {
     }
     return (
         <div>
-            {loading ? <spin />:<Form
+            {loading ? <Spin />:<Form
                 ref={formRef}
                 name="GateType"
                 className="create-gate-type"

@@ -1,7 +1,7 @@
 
 import './App.css';
-import { SearchOutlined} from '@ant-design/icons';
-import {Breadcrumb, Col, Collapse, Layout, Menu, Row} from 'antd';
+
+import {Breadcrumb, Col, Layout, Menu, Row} from 'antd';
 import React, {useState} from 'react';
 import 'antd/dist/antd.css'
 import { Route, Routes, useNavigate} from "react-router-dom";
@@ -24,12 +24,20 @@ import {CreateAndUpdateGateType} from "./Components/GateType/CreateAndUpdateGate
 import {Locat} from "./Components/Location/Locat";
 import {TeamOfficialRole} from "./Components/TeamOfficialRole/TeamOfficialRole";
 import {CreateAndUpdateTeamOfficialRole} from "./Components/TeamOfficialRole/CreateAndUpdateTeamOfficialRole";
+import {NationalFacilities} from "./Components/NationalFacilities/NationalFacilities";
+import {CreateAndUpdateNationalFacilities} from "./Components/NationalFacilities/CreateAndUpdateNationalFacilities";
+import {RoadExpenseCalculator} from "./Components/RoadExpenseCalculator/RoadExpenseCalculator";
+import {NewDocuments} from "./Components/Documents/NewDocuments";
+import {FfaUsers} from "./Components/FfaUsers/FfaUsers";
+import {FfaUser} from "./Components/FfaUsers/FfaUser";
+import {TableUpdate} from "./Components/Fragments/TableUpdate";
 
 
 
 const { Header, Content, Footer, Sider } = Layout;
 
     const items1 = [
+
         {
             key: `/age-categories`,
             label: `Age categories`,
@@ -49,8 +57,31 @@ const { Header, Content, Footer, Sider } = Layout;
         {
             key: 'team-official-role',
             label: `Team official role`,
-        }
+        },
+        {
+            key: 'national-facilities',
+            label: `NationalFacilities`,
+        },
+        {
+            label: `sss`,
+            children: [
+                {
+                    key: 'road-expense-calculator',
+                    label: `RoadExpenseCalculator`,
+                },
+                {
+                    key: 'documents/new',
+                    label: `NewDocuments`,
+                },
+            ]
+        },
+        {
+            key: 'ffa-users',
+            label: `FfaUsers`,
+        },
     ]
+
+
 
 function App() {
 
@@ -71,19 +102,13 @@ function App() {
                             label:'Users'
                         }
                     ]} />
-
                 </Col>
                 <Col lg={3}>
                     <div className="div-inputs">
                         {!LoggedId()?<AuthModal />: <LogOut />}
-
                     </div>
-
                 </Col>
-
             </Row>
-
-
         </Header>
         <Content
             style={{
@@ -143,9 +168,14 @@ function App() {
                         <Route exact path={'team-official-role'} element={<TeamOfficialRole />} />
                         <Route exact path={'team-official-role/new'} element={<CreateAndUpdateTeamOfficialRole />} />
                         <Route exact path={'team-official-role/:id'} element={<CreateAndUpdateTeamOfficialRole />} />
-
+                        <Route exact path={'national-facilities'} element={<NationalFacilities />} />
+                        <Route exact path={'national-facilities/new'} element={<CreateAndUpdateNationalFacilities />} />
+                        <Route exact path={'national-facilities/:id'} element={<CreateAndUpdateNationalFacilities />} />
+                        <Route exact path={'road-expense-calculator'} element={<RoadExpenseCalculator />} />
+                        <Route exact path={'documents/new'} element={<NewDocuments />} />
+                        <Route exact path={'ffa-users'} element={<FfaUsers />} />
+                        <Route exact path={'ffa-users/:id'} element={<FfaUser />} />
                     </Routes>
-
                 </Content>
             </Layout>
         </Content>
@@ -157,7 +187,6 @@ function App() {
             Ant Design ©2018 Created by Ant UED
         </Footer>
     </Layout>
-
 }
 
 export default App;

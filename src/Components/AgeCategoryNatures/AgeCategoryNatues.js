@@ -1,10 +1,7 @@
 
 import React from 'react';
-
-import {Link} from "react-router-dom";
-
 import {ResourceTable} from "../Fragments/ResourceTable";
-
+import {TableUpdate} from "../Fragments/TableUpdate";
 
 function AgeCategoryNatues() {
 
@@ -17,17 +14,23 @@ function AgeCategoryNatues() {
                     title: 'Name',
                     dataIndex: 'name',
                     key: 'name',
-                    render:(e,record)=><Link to={`/age-categories/${record.id}`}>{e}</Link>,
+                    render:(e,record)=>{
+                        return <TableUpdate recordTableName={record}
+                                            dataIndex={'name'}/>
+                    }
                 },
                 {
                     title: 'Min Age',
                     dataIndex: 'min_age',
                     key: 'MinAge',
+                    render:(e,record)=><TableUpdate recordTableName={record}
+                                            dataIndex={'min_age'}/>
                 },
                 {
                     title: 'Max Age',
                     dataIndex: 'max_age',
                     key: 'MaxAge',
+
                 },
             ]}
             />

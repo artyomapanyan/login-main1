@@ -4,7 +4,6 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import api from "../../api";
-import moment from "moment/moment";
 
 function LoginModal({setIsModalOpen,isModalOpen}){
     let reduxState = useSelector((state) => state)
@@ -30,7 +29,6 @@ function LoginModal({setIsModalOpen,isModalOpen}){
                 'Content-Type': 'application/json',
             },
         }).then(resp=>resp.json()).then(response=>{
-            console.log(response)
             dispatch({
                 type:'LOGIN',
                 payload:{
